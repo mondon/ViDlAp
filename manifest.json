@@ -1,0 +1,48 @@
+{
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "content_scripts": [
+        {
+            "all_frames": false,
+            "js": [
+                "onload.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "description": "This extension allow to send mp4 to Airplay and download ogg,avi,flv,mp4",
+    "icons": {
+        "128": "icon.png",
+        "16": "icon.png",
+        "48": "icon.png"
+    },
+    "manifest_version": 2,
+    "name": "ViDlAp",
+    "options_page": "options.html",
+    "page_action": {
+        "default_popup": "popup.html", 
+        "default_icon": {
+            "19": "icon.png",
+            "38": "icon.png"
+        },
+        "default_title": "Dl & AirPlay"
+    },
+  "background": {
+    "scripts": ["background.js","mediaTypes.js"]
+  },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "background",
+        "<all_urls>",
+		"webRequest", 
+		"webRequestBlocking"		
+    ],
+    "version": "0.0.0"
+}
