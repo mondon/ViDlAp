@@ -6,7 +6,7 @@ function addButton() {
   	var bgPage = chrome.extension.getBackgroundPage();
     var appletv=bgPage.isAppleTv()
     url=bgPage.getSource();
-    console.log(appletv)
+    console.log(url)
     if (appletv=="false"){
         downLoadFile()
         var dl = document.createTextNode("Download started");
@@ -16,13 +16,19 @@ function addButton() {
     var btn = document.createElement("BUTTON");
     var t = document.createTextNode("Download");
     btn.appendChild(t);
-    if (url.indexOf('.mp4')!=-1||url.indexOf('\?start')!=-1){
+    if (url.indexOf('.mp4')!=-1||url.exOf('\?start')!=-1){
         var brtn = document.createElement("BUTTON");
         var rt = document.createTextNode("Apple TV");
         brtn.appendChild(rt);
         brtn.onclick=function(){
   	        var bgPage = chrome.extension.getBackgroundPage();
-  	        bgPage.airplay(url,0);
+            if (url.indexOf('.mp4')) {
+                var lurl=url.substring(0,url.lastIndexOf('.mp4'))+'.mp4';
+            }else{
+                var lurl=url.substring(0,url.lastIndexOf('\?start'))+'.mp4';
+            }
+            console.log(lurl)
+  	        bgPage.airplay(lurl,0);
         };
         document.body.appendChild(brtn);
     }

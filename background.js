@@ -7,11 +7,9 @@ function onRequest(request, sender, sendResponse) {
     overridesource='';
     tabId=sender.tab.id;
     var tsource=tryOverride(sender.tab)
-    console.log(tsource);
     if (tsource!=null&&tsource!=''){
         overridesource=tsource;
         source=tsource;
-        console.log(overridesource);
         chrome.pageAction.show(tabId);
     };
     sendResponse({});
@@ -23,9 +21,7 @@ function getSource(){
 function tryOverride(tab){
     var tsource=''
     for(var i=0;i<logicOverride.length;i++){
-       console.log(i);
        tsource =logicOverride[i](tab)
-       console.log(tsource);
     }
     return tsource
 }
@@ -37,7 +33,6 @@ chrome.webRequest.onBeforeRequest.addListener(
             try{
                 chrome.pageAction.show(tabId);
             }catch(err){
-                console.log(err.message);
             };
         };
         return;
@@ -61,9 +56,7 @@ function overrideYoutube(tab){
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "https://www.youtube.com/get_video_info?&video_id=" + videoID + "&eurl=http%3A%2F%2Fwww%2Eyoutube%2Ecom%2F&sts=1588", false);
     xhr.send()
-    console.log(readQueryString(xhr.responseText));
     var flashvars = parseFlashVariables(xhr.responseText);
-    console.log(flashvars);
     if(flashvars.status === "ok") {
         return processFlashVars(flashvars);
     } else { // e.g. region-blocked video
@@ -185,6 +178,7 @@ function isAppleTv()
     return appletv;
 }
 function airplay(url, position) { 
+    console.log(url)
     var xhr = new XMLHttpRequest(); 
 	var hostname = getHostname()
     var port = ":7000"; 
@@ -207,7 +201,6 @@ function airplay(url, position) {
 			xhr.open("GET", "http://" + hostname + port + "/playback-info", true, "AirPlay", null);
 			xhr.addEventListener("load", function() {
 				playback_info_keys_count = xhr.responseXML.getElementsByTagName("key").length;
-				console.log("playback: " + playback_started + "; keys: " + playback_info_keys_count)
 				if (!playback_started && playback_info_keys_count > 2) { // if we're getting some actual playback info
 					playback_started = true;
 					console.log("setting playback_started = true")
