@@ -16,7 +16,7 @@ function addButton() {
     var btn = document.createElement("BUTTON");
     var t = document.createTextNode("Download");
     btn.appendChild(t);
-    if (url.indexOf('.mp4')!=-1||url.exOf('\?start')!=-1){
+    if (url.indexOf('.mp4')!=-1||url.indexOf('\?start')!=-1){
         var brtn = document.createElement("BUTTON");
         var rt = document.createTextNode("Apple TV");
         brtn.appendChild(rt);
